@@ -1,6 +1,7 @@
 package home.jurufola.entites;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,7 +23,7 @@ public class Additif {
     @JoinTable(name = "produit_additif",
             joinColumns = @JoinColumn(name = "id_additif", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "id"))
-    private Set<Produit> produits;
+    private Set<Produit> produits = new HashSet<>();
 
     /**
      * Constructeur
@@ -38,6 +39,14 @@ public class Additif {
      * Constructeur vide
      */
     public Additif() {
+    }
+
+    /**
+     * Constructeur à partir de la description
+     * @param description La description de l'additif
+     */
+    public Additif(String description) {
+        this.description = description;
     }
 
     /**

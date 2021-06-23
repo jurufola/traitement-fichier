@@ -1,6 +1,7 @@
 package home.jurufola.entites;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,14 +17,22 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "libelle")
+    @Column(name = "libelle", length = 1000)
     private String libelle;
 
     @ManyToMany
     @JoinTable(name = "produit_ingredient",
             joinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "id"))
-    private Set<Produit> produits;
+    private Set<Produit> produits =  new HashSet<>();
+
+    /**
+     * Constructeur à partir de libelle
+     * @param libelle Le libellé de l'ingrédient
+     */
+    public Ingredient(String libelle) {
+        this.libelle = libelle;
+    }
 
     /**
      * Constructeur

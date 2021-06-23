@@ -1,6 +1,7 @@
 package home.jurufola.entites;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,6 +17,9 @@ public class Produit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "nom")
+    private String nom;
+
     @ManyToOne
     @JoinColumn(name = "id_categorie")
     private Categorie categorie;
@@ -27,7 +31,7 @@ public class Produit {
     @Column(name = "score_nutritionnel")
     private char scoreNutritionnel;
 
-    @Column(name = "energie100g")
+    @Column(name = "energie100g", length = 2000)
     private String energie100g;
 
     @Column(name = "graisse100g")
@@ -49,23 +53,24 @@ public class Produit {
     @JoinTable(name = "produit_ingredient",
                 joinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"))
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "produit_allergene",
             joinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_allergene", referencedColumnName = "id"))
-    private Set<Allergene> allergenes;
+    private Set<Allergene> allergenes = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "produit_additif",
             joinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_additif", referencedColumnName = "id"))
-    private Set<Additif> additifs;
+    private Set<Additif> additifs = new HashSet<>();
 
 
     /**
      * Constructeur
+     * @param nom
      * @param categorie La catégorie du produit
      * @param marque La marque du produit
      * @param scoreNutritionnel Le score nutritionnel du produit
@@ -79,7 +84,10 @@ public class Produit {
      * @param allergenes La liste des allergène présents dans le produit
      * @param additifs La Liste des additifs présents dans le produit
      */
-    public Produit(Categorie categorie, Marque marque, char scoreNutritionnel, String energie100g, String graisse100g, String sucres100g, String fibres100g, String proteines100g, String sel100g, Set<Ingredient> ingredients, Set<Allergene> allergenes, Set<Additif> additifs) {
+    public Produit(String nom, Categorie categorie, Marque marque, char scoreNutritionnel, String energie100g, String
+            graisse100g, String sucres100g, String fibres100g, String proteines100g, String sel100g, Set<Ingredient>
+            ingredients, Set<Allergene> allergenes, Set<Additif> additifs) {
+        this.nom = nom;
         this.categorie = categorie;
         this.marque = marque;
         this.scoreNutritionnel = scoreNutritionnel;
@@ -258,5 +266,21 @@ public class Produit {
      */
     public void setAdditifs(Set<Additif> additifs) {
         this.additifs = additifs;
+    }
+
+    /**
+     * Getter nom
+     * @return Le nom du produit
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     * Setter nom
+     * @param nom Le nom du produit
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 }

@@ -1,6 +1,7 @@
 package home.jurufola.entites;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ public class Allergene {
     @JoinTable(name = "produit_allergene",
             joinColumns = @JoinColumn(name = "id_allergene", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "id"))
-    private Set<Produit> produits;
+    private Set<Produit> produits = new HashSet<>();
 
     /**
      * Constructeur
@@ -39,6 +40,14 @@ public class Allergene {
      * Constructeur vide
      */
     public Allergene() {
+    }
+
+    /**
+     * Constructeur à partir du libellé
+     * @param libelle Le libellé de l'allergène
+     */
+    public Allergene(String libelle) {
+        this.libelle = libelle;
     }
 
     /**

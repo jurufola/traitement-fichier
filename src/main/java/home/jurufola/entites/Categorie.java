@@ -1,6 +1,7 @@
 package home.jurufola.entites;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,7 +21,15 @@ public class Categorie {
     private String libelle;
 
     @OneToMany(mappedBy = "categorie")
-    private Set<Produit> produits;
+    private Set<Produit> produits = new HashSet<>();
+
+    /**
+     * Constructeur aavec libelle
+     * @param libelle Le libellé de la catégorie
+     */
+    public Categorie(String libelle) {
+        this.libelle = libelle;
+    }
 
     /**
      * Cosntructeur
@@ -85,4 +94,5 @@ public class Categorie {
     public void setProduits(Set<Produit> produits) {
         this.produits = produits;
     }
+
 }
