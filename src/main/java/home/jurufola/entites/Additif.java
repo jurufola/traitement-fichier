@@ -9,7 +9,7 @@ import java.util.Set;
  * @author juruf_000
  */
 @Entity
-@Table(name = "additif")
+@Table(name = "additif", indexes = @Index(name = "description_index", columnList = "description"))
 public class Additif {
     @Id
     @Column(name = "id")
@@ -44,6 +44,7 @@ public class Additif {
     /**
      * Constructeur à partir de la description
      * @param description La description de l'additif
+     *
      */
     public Additif(String description) {
         this.description = description;

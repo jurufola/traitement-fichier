@@ -10,7 +10,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "marque")
+@Table(name = "marque", indexes = @Index(name = "libelle_index", columnList = "libelle"))
 public class Marque {
     @Id
     @Column(name = "id")

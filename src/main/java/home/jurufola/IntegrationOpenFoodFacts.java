@@ -176,8 +176,10 @@ public class IntegrationOpenFoodFacts {
                 Produit produit = new Produit(nomProduit, categorie, marque, scoreNutritionnel, energie100g,
                         graisse100g, sucres100g, fibres100g, proteines100g, sel100g, ingredients, allergenes, additifs);
                 TypedQuery<Produit> produitQuery = manager.createQuery("select p from Produit p where p" +
-                        ".nom = :nom", Produit.class);
+                        ".nom = :nom and p.categorie = :cartegorie and p.marque = :marque", Produit.class);
                 produitQuery.setParameter("nom", nomProduit);
+                produitQuery.setParameter("categorie", categorie);
+                produitQuery.setParameter("marque", marque);
 
                 //try {// Si le resultat de la query n 'est pas vide,
                     // le Produit existe et on le récupère de la base.
